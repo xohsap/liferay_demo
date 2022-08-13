@@ -22,9 +22,6 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- * @author xohsa
- */
 @Component(
     immediate = true,
     property = {
@@ -59,23 +56,21 @@ public class GuestbookPortlet extends MVCPortlet {
         if (entryId > 0) {
 
             try {
-
                 _entryLocalService.updateEntry(
                     serviceContext.getUserId(), guestbookId, entryId, userName,
                     email, message, serviceContext);
 
                 response.setRenderParameter(
                     "guestbookId", Long.toString(guestbookId));
-
+                SessionMessages.add(request, "entryAdded");
             } catch (Exception e) {
                 System.out.println(e);
-
+                SessionErrors.add(request, e.getClass().getName());
                 PortalUtil.copyRequestParameters(request, response);
 
                 response.setRenderParameter(
                     "mvcPath", "/edit_entry.jsp");
             }
-
         } else {
 
             try {
@@ -112,9 +107,11 @@ public class GuestbookPortlet extends MVCPortlet {
                 "guestbookId", Long.toString(guestbookId));
 
             _entryLocalService.deleteEntry(entryId, serviceContext);
+            SessionMessages.add(request, "entryDeleted");
         } catch (Exception e) {
             Logger.getLogger(GuestbookPortlet.class.getName()).log(
                 Level.SEVERE, null, e);
+            SessionErrors.add(request, e.getClass().getName());
         }
     }
 
@@ -132,6 +129,7 @@ public class GuestbookPortlet extends MVCPortlet {
 
             List<Guestbook> guestbooks = _guestbookLocalService.getGuestbooks(
                 groupId);
+
 
             if (guestbooks.isEmpty()) {
                 Guestbook guestbook = _guestbookLocalService.addGuestbook(

@@ -30,6 +30,8 @@
 
         <liferay-ui:search-container-column-text property="name"/>
 
+<%--        <liferay-ui:search-container-column-text property="email"/>--%>
+
     </liferay-ui:search-container-row>
 
     <liferay-ui:search-iterator/>

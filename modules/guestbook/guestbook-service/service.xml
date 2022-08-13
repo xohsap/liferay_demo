@@ -62,8 +62,8 @@
         <column name="guestbookId" type="long" />
 
         <finder name="G_G" return-type="Collection">
-            <finder-column name="groupId" />
-            <finder-column name="guestbookId" />
+            <finder-column name="groupId"/>
+            <finder-column name="guestbookId"/>
         </finder>
     </entity>
 

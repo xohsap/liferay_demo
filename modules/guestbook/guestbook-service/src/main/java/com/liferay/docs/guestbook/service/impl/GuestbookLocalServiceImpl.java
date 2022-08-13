@@ -66,6 +66,7 @@ public class GuestbookLocalServiceImpl extends GuestbookLocalServiceBaseImpl {
         guestbookPersistence.update(guestbook);
 
         return guestbook;
+
     }
 
     public List<Guestbook> getGuestbooks(long groupId) {
@@ -94,4 +95,5 @@ public class GuestbookLocalServiceImpl extends GuestbookLocalServiceBaseImpl {
             throw new GuestbookNameException();
         }
     }
+
 }
