@@ -51,6 +51,17 @@ public class EntryLocalServiceWrapper
 		return _entryLocalService.addEntry(entry);
 	}
 
+	@Override
+	public com.liferay.docs.guestbook.model.Entry addEntry(
+			long userId, long guestbookId, String name, String email,
+			String message,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _entryLocalService.addEntry(
+			userId, guestbookId, name, email, message, serviceContext);
+	}
+
 	/**
 	 * Creates a new entry with the primary key. Does not add the entry to the database.
 	 *
@@ -106,6 +117,15 @@ public class EntryLocalServiceWrapper
 		throws com.liferay.portal.kernel.exception.PortalException {
 
 		return _entryLocalService.deleteEntry(entryId);
+	}
+
+	@Override
+	public com.liferay.docs.guestbook.model.Entry deleteEntry(
+			long entryId,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _entryLocalService.deleteEntry(entryId, serviceContext);
 	}
 
 	/**
@@ -264,6 +284,31 @@ public class EntryLocalServiceWrapper
 		return _entryLocalService.getEntries(start, end);
 	}
 
+	@Override
+	public java.util.List<com.liferay.docs.guestbook.model.Entry> getEntries(
+		long groupId, long guestbookId) {
+
+		return _entryLocalService.getEntries(groupId, guestbookId);
+	}
+
+	@Override
+	public java.util.List<com.liferay.docs.guestbook.model.Entry> getEntries(
+			long groupId, long guestbookId, int start, int end)
+		throws com.liferay.portal.kernel.exception.SystemException {
+
+		return _entryLocalService.getEntries(groupId, guestbookId, start, end);
+	}
+
+	@Override
+	public java.util.List<com.liferay.docs.guestbook.model.Entry> getEntries(
+		long groupId, long guestbookId, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator
+			<com.liferay.docs.guestbook.model.Entry> obc) {
+
+		return _entryLocalService.getEntries(
+			groupId, guestbookId, start, end, obc);
+	}
+
 	/**
 	 * Returns all the entries matching the UUID and company.
 	 *
@@ -307,6 +352,11 @@ public class EntryLocalServiceWrapper
 	@Override
 	public int getEntriesCount() {
 		return _entryLocalService.getEntriesCount();
+	}
+
+	@Override
+	public int getEntriesCount(long groupId, long guestbookId) {
+		return _entryLocalService.getEntriesCount(groupId, guestbookId);
 	}
 
 	/**
@@ -392,6 +442,18 @@ public class EntryLocalServiceWrapper
 		com.liferay.docs.guestbook.model.Entry entry) {
 
 		return _entryLocalService.updateEntry(entry);
+	}
+
+	@Override
+	public com.liferay.docs.guestbook.model.Entry updateEntry(
+			long userId, long guestbookId, long entryId, String name,
+			String email, String message,
+			com.liferay.portal.kernel.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			   com.liferay.portal.kernel.exception.SystemException {
+
+		return _entryLocalService.updateEntry(
+			userId, guestbookId, entryId, name, email, message, serviceContext);
 	}
 
 	@Override
