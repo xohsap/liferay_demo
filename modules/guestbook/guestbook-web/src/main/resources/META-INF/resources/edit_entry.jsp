@@ -15,7 +15,7 @@
 
 <portlet:renderURL var="viewURL">
 
-    <portlet:param name="mvcPath" value="/guestbookwebportlet/view.jsp"></portlet:param>
+    <portlet:param name="mvcPath" value="/view.jsp"></portlet:param>
 
 </portlet:renderURL>
 

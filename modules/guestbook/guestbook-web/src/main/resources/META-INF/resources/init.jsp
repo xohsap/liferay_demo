@@ -15,6 +15,9 @@
 <%@ page import="com.liferay.docs.guestbook.model.Entry" %>
 <%@ page import="com.liferay.docs.guestbook.service.EntryLocalServiceUtil" %>
 <%@ page import="com.liferay.portal.kernel.util.ParamUtil" %>
+<%@ page import="com.liferay.portal.kernel.dao.search.ResultRow" %>
+<%@ page import="com.liferay.docs.guestbook.model.Guestbook" %>
+<%@ page import="com.liferay.docs.guestbook.service.GuestbookLocalServiceUtil" %>
 
 <liferay-theme:defineObjects/>
 

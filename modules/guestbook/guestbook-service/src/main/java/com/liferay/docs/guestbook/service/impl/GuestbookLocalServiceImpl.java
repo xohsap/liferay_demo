@@ -17,6 +17,7 @@ package com.liferay.docs.guestbook.service.impl;
 import com.liferay.docs.guestbook.exception.GuestbookNameException;
 import com.liferay.docs.guestbook.model.Entry;
 import com.liferay.docs.guestbook.model.Guestbook;
+import com.liferay.docs.guestbook.service.EntryLocalService;
 import com.liferay.docs.guestbook.service.base.GuestbookLocalServiceBaseImpl;
 import com.liferay.portal.aop.AopService;
 import com.liferay.portal.kernel.exception.PortalException;
@@ -26,6 +27,7 @@ import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.Validator;
 import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 
 import java.util.Date;
 import java.util.List;
@@ -94,17 +96,24 @@ public class GuestbookLocalServiceImpl extends GuestbookLocalServiceBaseImpl {
         return guestbook;
     }
 
+    private EntryLocalService _entryLocalService;
+
+    @Reference(unbind = "-")
+    protected void setEntryService(EntryLocalService entryLocalService) {
+        _entryLocalService = entryLocalService;
+    }
+
     public Guestbook deleteGuestbook(long guestbookId,
                                      ServiceContext serviceContext) throws PortalException,
         SystemException {
 
         Guestbook guestbook = getGuestbook(guestbookId);
 
-        List<Entry> entries = entryLocalService.getEntries(
+        List<Entry> entries = _entryLocalService.getEntries(
             serviceContext.getScopeGroupId(), guestbookId);
 
         for (Entry entry : entries) {
-            entryLocalService.deleteEntry(entry.getEntryId());
+            _entryLocalService.deleteEntry(entry.getEntryId());
         }
 
         guestbook = deleteGuestbook(guestbook);
