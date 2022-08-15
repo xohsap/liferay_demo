@@ -101,8 +101,7 @@ public class GuestbookLocalServiceImpl extends GuestbookLocalServiceBaseImpl {
         resourceLocalService.updateResources(serviceContext.getCompanyId(),
             serviceContext.getScopeGroupId(),
             Guestbook.class.getName(), guestbookId,
-            serviceContext.getGroupPermissions(),
-            serviceContext.getGuestPermissions());
+            serviceContext.getModelPermissions());
 
         return guestbook;
     }

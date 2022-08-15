@@ -104,8 +104,8 @@ public class EntryLocalServiceImpl extends EntryLocalServiceBaseImpl {
 
         resourceLocalService.updateResources(
             user.getCompanyId(), serviceContext.getScopeGroupId(),
-            Entry.class.getName(), entryId, serviceContext.getGroupPermissions(),
-            serviceContext.getGuestPermissions());
+            Entry.class.getName(), entryId,
+            serviceContext.getModelPermissions());
 
         return entry;
     }
