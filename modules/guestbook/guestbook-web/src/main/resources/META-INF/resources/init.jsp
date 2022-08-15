@@ -23,6 +23,9 @@
 <%@ page import="com.liferay.docs.guestbook.web.internal.security.permission.resource.GuestbookEntryPermission" %>
 <%@ page import="com.liferay.portal.kernel.util.WebKeys" %>
 <%@ page import="com.liferay.portal.kernel.security.permission.ActionKeys" %>
+<%@ page import="java.util.List" %>
+<%@ page import="com.liferay.petra.string.StringPool" %>
+<%@ page import="com.liferay.portal.kernel.util.HtmlUtil" %>
 
 <liferay-theme:defineObjects/>
 
