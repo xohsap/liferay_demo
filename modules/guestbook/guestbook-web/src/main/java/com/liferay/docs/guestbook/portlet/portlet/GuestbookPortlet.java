@@ -31,7 +31,7 @@ import java.util.logging.Logger;
         "javax.portlet.display-name=Guestbook",
         "javax.portlet.expiration-cache=0",
         "javax.portlet.init-param.template-path=/",
-        "javax.portlet.init-param.view-template=/view.jsp",
+        "javax.portlet.init-param.view-template=/guestbookwebportlet/view.jsp",
         "javax.portlet.resource-bundle=content.Language",
         "javax.portlet.security-role-ref=power-user,user",
         "javax.portlet.supports.mime-type=text/html",
@@ -69,7 +69,7 @@ public class GuestbookPortlet extends MVCPortlet {
                 PortalUtil.copyRequestParameters(request, response);
 
                 response.setRenderParameter(
-                    "mvcPath", "/edit_entry.jsp");
+                    "mvcPath", "/guestbookwebportlet/edit_entry.jsp");
             }
         } else {
 
@@ -89,7 +89,7 @@ public class GuestbookPortlet extends MVCPortlet {
                 PortalUtil.copyRequestParameters(request, response);
 
                 response.setRenderParameter(
-                    "mvcPath", "/edit_entry.jsp");
+                    "mvcPath", "/guestbookwebportlet/edit_entry.jsp");
             }
         }
     }

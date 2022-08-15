@@ -1,4 +1,4 @@
-<%@include file="/init.jsp"%>
+<%@include file="../init.jsp"%>
 
 <%
     String mvcPath = ParamUtil.getString(request, "mvcPath");
@@ -11,7 +11,7 @@
 <liferay-ui:icon-menu>
 
     <c:if
-        test="<%= GuestbookEntryPermission.contains(permissionChecker, entry.getEntryId(), ActionKeys.UPDATE) %>">
+            test="<%= GuestbookEntryPermission.contains(permissionChecker, entry.getEntryId(), ActionKeys.UPDATE) %>">
         <portlet:renderURL var="editURL">
             <portlet:param name="entryId"
                            value="<%= String.valueOf(entry.getEntryId()) %>" />
@@ -23,20 +23,20 @@
     </c:if>
 
     <c:if
-        test="<%=GuestbookEntryPermission.contains(permissionChecker, entry.getEntryId(), ActionKeys.PERMISSIONS) %>">
+            test="<%=GuestbookEntryPermission.contains(permissionChecker, entry.getEntryId(), ActionKeys.PERMISSIONS) %>">
 
         <liferay-security:permissionsURL
-            modelResource="<%= Entry.class.getName() %>"
-            modelResourceDescription="<%= entry.getMessage() %>"
-            resourcePrimKey="<%= String.valueOf(entry.getEntryId()) %>"
-            var="permissionsURL" />
+                modelResource="<%= Entry.class.getName() %>"
+                modelResourceDescription="<%= entry.getMessage() %>"
+                resourcePrimKey="<%= String.valueOf(entry.getEntryId()) %>"
+                var="permissionsURL" />
 
         <liferay-ui:icon image="permissions" url="<%= permissionsURL %>" />
 
     </c:if>
 
     <c:if
-        test="<%=GuestbookEntryPermission.contains(permissionChecker, entry.getEntryId(), ActionKeys.DELETE) %>">
+            test="<%=GuestbookEntryPermission.contains(permissionChecker, entry.getEntryId(), ActionKeys.DELETE) %>">
 
         <portlet:actionURL name="deleteEntry" var="deleteURL">
             <portlet:param name="entryId"

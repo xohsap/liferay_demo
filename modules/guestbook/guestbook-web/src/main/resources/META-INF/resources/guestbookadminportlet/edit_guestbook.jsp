@@ -1,4 +1,4 @@
-<%@include file = "/init.jsp" %>
+<%@include file = "../init.jsp" %>
 
 <%
     long guestbookId = ParamUtil.getLong(request, "guestbookId");
@@ -11,7 +11,7 @@
 %>
 
 <portlet:renderURL var="viewURL">
-    <portlet:param name="mvcPath" value="/view.jsp" />
+    <portlet:param name="mvcPath" value="/guestbookadminportlet/view.jsp" />
 </portlet:renderURL>
 
 <portlet:actionURL name='<%= guestbook == null ? "addGuestbook" : "updateGuestbook" %>' var="editGuestbookURL" />

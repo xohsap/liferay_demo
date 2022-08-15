@@ -1,10 +1,10 @@
-<%@include file="/init.jsp"%>
+<%@include file="../init.jsp"%>
 
 <%
     String mvcPath = ParamUtil.getString(request, "mvcPath");
 
     ResultRow row = (ResultRow) request
-        .getAttribute("SEARCH_CONTAINER_RESULT_ROW");
+            .getAttribute("SEARCH_CONTAINER_RESULT_ROW");
 
     Guestbook guestbook = (Guestbook) row.getObject();
 %>
@@ -15,7 +15,7 @@
         <portlet:param name="guestbookId"
                        value="<%=String.valueOf(guestbook.getGuestbookId()) %>" />
         <portlet:param name="mvcPath"
-                       value="/edit_guestbook.jsp" />
+                       value="/guestbookadminportlet/edit_guestbook.jsp" />
     </portlet:renderURL>
 
     <liferay-ui:icon image="edit" message="Edit"
@@ -29,13 +29,13 @@
     <liferay-ui:icon-delete url="<%=deleteURL.toString() %>" />
 
     <c:if
-        test="<%=GuestbookModelPermission.contains(permissionChecker, guestbook.getGuestbookId(), ActionKeys.PERMISSIONS) %>">
+            test="<%=GuestbookModelPermission.contains(permissionChecker, guestbook.getGuestbookId(), ActionKeys.PERMISSIONS) %>">
 
         <liferay-security:permissionsURL
-            modelResource="<%= Guestbook.class.getName() %>"
-            modelResourceDescription="<%= guestbook.getName() %>"
-            resourcePrimKey="<%= String.valueOf(guestbook.getGuestbookId()) %>"
-            var="permissionsURL" />
+                modelResource="<%= Guestbook.class.getName() %>"
+                modelResourceDescription="<%= guestbook.getName() %>"
+                resourcePrimKey="<%= String.valueOf(guestbook.getGuestbookId()) %>"
+                var="permissionsURL" />
 
         <liferay-ui:icon image="permissions" url="<%= permissionsURL %>" />
 
