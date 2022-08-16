@@ -1,0 +1,11 @@
+version: "3.5"
+services:
+
+  guestbookDb:
+    ports:
+      - 5432:5432
+    image: postgres:12
+    environment:
+      POSTGRES_DB: user
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: user
