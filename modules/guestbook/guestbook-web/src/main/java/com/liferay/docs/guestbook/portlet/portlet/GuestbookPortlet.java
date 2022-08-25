@@ -3,8 +3,10 @@ package com.liferay.docs.guestbook.portlet.portlet;
 import com.liferay.docs.guestbook.model.Entry;
 import com.liferay.docs.guestbook.model.Guestbook;
 import com.liferay.docs.guestbook.constants.GuestbookPortletKeys;
+import com.liferay.docs.guestbook.portlet.configuration.DDMFormWebConfiguration;
 import com.liferay.docs.guestbook.service.EntryLocalService;
 import com.liferay.docs.guestbook.service.GuestbookLocalService;
+import com.liferay.portal.configuration.metatype.bnd.util.ConfigurableUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
 import com.liferay.portal.kernel.service.ServiceContext;
@@ -13,12 +15,15 @@ import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.servlet.SessionMessages;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.PortalUtil;
+import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Modified;
 import org.osgi.service.component.annotations.Reference;
 
 import javax.portlet.*;
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -37,9 +42,43 @@ import java.util.logging.Logger;
         "javax.portlet.supports.mime-type=text/html",
         "javax.portlet.name=" + GuestbookPortletKeys.GUESTBOOK
     },
-    service = Portlet.class
+    service = Portlet.class,
+    configurationPid = "com.liferay.docs.guestbook.portlet.configuration.DDMFormWebConfiguration"
 )
 public class GuestbookPortlet extends MVCPortlet {
+
+    private EntryLocalService _entryLocalService;
+    private GuestbookLocalService _guestbookLocalService;
+
+    @Reference(unbind = "-")
+    protected void setEntryService(EntryLocalService entryLocalService) {
+        _entryLocalService = entryLocalService;
+    }
+
+    @Reference(unbind = "-")
+    protected void setGuestbookService(GuestbookLocalService guestbookLocalService) {
+        _guestbookLocalService = guestbookLocalService;
+    }
+
+    @Activate
+    @Modified
+    protected void activate(Map<String, Object> properties) {
+        _configuration = ConfigurableUtil.createConfigurable(
+            DDMFormWebConfiguration.class, properties);
+    }
+
+    private volatile DDMFormWebConfiguration _configuration;
+
+
+    @Override
+    public void doView(RenderRequest renderRequest,
+                       RenderResponse renderResponse) throws IOException, PortletException {
+
+        renderRequest.setAttribute(
+            DDMFormWebConfiguration.class.getName(), _configuration);
+
+        super.doView(renderRequest, renderResponse);
+    }
 
     public void addEntry(ActionRequest request, ActionResponse response)
         throws PortalException {
@@ -150,16 +189,5 @@ public class GuestbookPortlet extends MVCPortlet {
         super.render(renderRequest, renderResponse);
     }
 
-    @Reference(unbind = "-")
-    protected void setEntryService(EntryLocalService entryLocalService) {
-        _entryLocalService = entryLocalService;
-    }
 
-    @Reference(unbind = "-")
-    protected void setGuestbookService(GuestbookLocalService guestbookLocalService) {
-        _guestbookLocalService = guestbookLocalService;
-    }
-
-    private EntryLocalService _entryLocalService;
-    private GuestbookLocalService _guestbookLocalService;
 }

@@ -1,4 +1,6 @@
 <%@include file="../init.jsp"%>
+<%@ page import="com.liferay.docs.guestbook.portlet.configuration.DDMFormWebConfiguration" %>
+<%@ page import="com.liferay.portal.kernel.util.GetterUtil" %>
 
 <liferay-ui:success key="entryAdded" message="entry-added" />
 <liferay-ui:success key="entryDeleted" message="entry-deleted" />
@@ -7,6 +9,15 @@
 	long guestbookId = Long.valueOf((Long) renderRequest
 			.getAttribute("guestbookId"));
 %>
+
+<%
+    DDMFormWebConfiguration configuration = (DDMFormWebConfiguration) GetterUtil.getObject(
+        renderRequest.getAttribute(DDMFormWebConfiguration.class.getName()));
+
+    String favoriteColor = configuration.favoriteColor();
+%>
+
+<p>Favorite color: <span style="color: <%= favoriteColor %>;"><%= favoriteColor %></span></p
 
 <portlet:renderURL var="searchURL">
     <portlet:param name="mvcPath"

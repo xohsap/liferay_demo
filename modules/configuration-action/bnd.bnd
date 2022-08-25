@@ -1,0 +1,4 @@
+Bundle-Name: configuration-action
+Bundle-SymbolicName: configuration.action
+Bundle-Version: 1.0.0
+Export-Package: configuration.action.constants
